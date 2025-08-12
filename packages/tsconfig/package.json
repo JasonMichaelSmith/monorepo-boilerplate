@@ -1,0 +1,17 @@
+{
+    "name": "@repo/tsconfig",
+    "version": "0.0.0",
+    "main": "index.js",
+    "compilerOptions": {
+        "declaration": true,
+        "outDir": "./dist",
+        "rootDir": "./src"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
+}

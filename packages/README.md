@@ -1,0 +1,1 @@
+Packages are like internal node module libraries, used primarily to standardize generic or abstract code that is reusable across multiple apps and functions.

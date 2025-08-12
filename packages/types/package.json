@@ -1,0 +1,14 @@
+{
+    "name": "@repo/types",
+    "version": "0.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
+    "devDependencies": {
+        "@repo/tsconfig": "workspace:*",
+        "typescript": "^5.9.2"
+    }
+}

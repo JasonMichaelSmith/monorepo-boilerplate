@@ -1,0 +1,1 @@
+Here we have all apps that can either be web-based applications or native applications.

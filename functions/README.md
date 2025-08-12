@@ -1,0 +1,3 @@
+Functions are for hosting backends such as APIs, serverless lambdas, and cron jobs.
+
+!IMPORTANT: The backend functions should be platform agnostic, i.e. not use any specific vendor's boilerplate such as AWS, Azure or Cloudflare. This ensures fundamental backend and API functions are easily transferable between vendors. For vendor specific API or backend deployments, you should create a new app specific to that vendor, which then wraps these fundamental backends or API calls with their own boilerplate and types, which you then pass into generic parameters to call the functions here.

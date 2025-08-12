@@ -1,0 +1,1 @@
+This is a bare bones Node.js monorepo boilerplate for Node.js and TypeScript.
