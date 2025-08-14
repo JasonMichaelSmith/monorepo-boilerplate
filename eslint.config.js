@@ -32,6 +32,20 @@ export default [
         },
     },
     {
-        ignores: ['node_modules/', 'dist/', 'build/'],
+        ignores: [
+            'node_modules/',
+            '**/dist/**',
+            '**/build/**',
+            '.turbo/',
+            'coverage/',
+            '.next/',
+            '.nuxt/',
+            '.output/',
+            '.vite/',
+            'tmp/',
+            'temp/',
+            '*.min.js',
+            '*.min.css',
+        ],
     },
 ];
