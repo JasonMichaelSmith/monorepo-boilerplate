@@ -11,6 +11,9 @@ export default [
             parserOptions: {
                 ecmaVersion: 'latest',
                 sourceType: 'module',
+                ecmaFeatures: {
+                    jsx: true,
+                },
             },
             globals: {
                 console: 'readonly',
@@ -22,6 +25,8 @@ export default [
                 module: 'readonly',
                 require: 'readonly',
                 exports: 'readonly',
+                React: 'readonly',
+                HTMLElement: 'readonly',
             },
         },
         plugins: {
@@ -46,6 +51,8 @@ export default [
             'temp/',
             '*.min.js',
             '*.min.css',
+            '**/.next/**',
+            '**/next-env.d.ts'
         ],
     },
 ];

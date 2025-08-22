@@ -1,0 +1,28 @@
+{
+    "common": {
+        "welcome": "Bienvenido",
+        "home": "Inicio",
+        "about": "Acerca de",
+        "contact": "Contacto",
+        "language": "Idioma",
+        "loading": "Cargando...",
+        "error": "Algo salió mal"
+    },
+    "navigation": {
+        "dashboard": "Tablero",
+        "settings": "Configuración",
+        "profile": "Perfil"
+    },
+    "homepage": {
+        "title": "Bienvenido a Nuestra Aplicación",
+        "subtitle": "Comienza explorando nuestras funciones",
+        "description": "Esta es una aplicación web moderna construida con Next.js y soporte de internacionalización.",
+        "getStarted": "Comenzar",
+        "learnMore": "Aprender Más"
+    },
+    "theme": {
+        "toggleTheme": "Cambiar tema",
+        "lightMode": "Modo claro",
+        "darkMode": "Modo oscuro"
+    }
+}
