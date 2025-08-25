@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
+import { ThemeToggle } from '../ThemeToggle';
 import { LanguageToggle } from './LanguageToggle';
-import { Card, ThemeToggle } from '@repo/ui';
 
 export default function Home() {
     const t = useTranslations('homepage');
@@ -8,21 +8,15 @@ export default function Home() {
 
     return (
         <div>
-            <Card
-                content={
-                    <>
-                        <h1>{t('title')}</h1>
-                        <p>{t('subtitle')}</p>
-                        <p>{t('description')}</p>
-                    </>
-                }
-                actions={
-                    <>
-                        <ThemeToggle />
-                        <LanguageToggle />
-                    </>
-                }
-            />
+            <h1>{t('title')}</h1>
+            <p>{t('subtitle')}</p>
+            <p>{t('description')}</p>
+
+            <div>
+                <ThemeToggle />
+                <LanguageToggle />
+            </div>
+
             <p>
                 {tCommon('welcome')} • {tCommon('loading')}
             </p>
