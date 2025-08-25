@@ -1,25 +1,14 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import {
+    ButtonProps as MuiButtonProps,
+    Button as MuiButton,
+} from '@mui/material';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
+import { ReactNode } from 'react';
+
+interface ButtonProps extends MuiButtonProps {
     children: ReactNode;
-    variant?: 'primary' | 'secondary' | 'outline';
-    size?: 'sm' | 'md' | 'lg';
-    onClick: () => void;
 }
 
-export const Button = ({
-    children,
-    variant = 'primary',
-    size = 'md',
-    className = '',
-    onClick,
-}: ButtonProps) => {
-    return (
-        <button
-            onClick={onClick}
-            className={`btn btn-${variant} btn-${size} ${className}`}
-        >
-            {children}
-        </button>
-    );
+export const Button = ({ children, ...rest }: ButtonProps) => {
+    return <MuiButton {...rest}>{children}</MuiButton>;
 };

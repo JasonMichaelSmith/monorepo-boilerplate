@@ -1,6 +1,6 @@
 'use client';
 
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from '@repo/ui';
 import { useState, useEffect } from 'react';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -15,14 +15,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     }
 
     // Wrap children with ThemeProvider after mount
-    return (
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-            {children}
-        </ThemeProvider>
-    );
+    return <ThemeProvider>{children}</ThemeProvider>;
 }
