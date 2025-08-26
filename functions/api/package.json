@@ -3,13 +3,16 @@
     "version": "0.0.0",
     "main": "dist/index.js",
     "dependencies": {
-        "@repo/types": "workspace:*"
+        "@repo/types": "workspace:*",
+        "axios": "^1.11.0"
     },
     "devDependencies": {
-        "@repo/tsconfig": "workspace:*"
+        "@repo/tsconfig": "workspace:*",
+        "vitest": "^2.0.5"
     },
     "scripts": {
         "build": "tsc",
+        "test": "vitest",
         "dev": "tsc --watch"
     }
 }
