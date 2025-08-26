@@ -12,7 +12,24 @@ const compat = new FlatCompat({
 const eslintConfig = [
     ...compat.extends("next/core-web-vitals", "next/typescript"),
     {
+        ignores: [
+            "node_modules/**",
+            ".next/**",
+            "out/**",
+            "build/**",
+            "next-env.d.ts",
+        ],
+    },
+    {
         languageOptions: {
+            globals: {
+                fetch: "readonly",
+                Request: "readonly",
+                Response: "readonly",
+                Headers: "readonly",
+                URL: "readonly",
+                URLSearchParams: "readonly",
+            },
             parserOptions: {
                 ecmaFeatures: {
                     jsx: true,
@@ -23,13 +40,6 @@ const eslintConfig = [
         rules: {
             "react/react-in-jsx-scope": "off",
         },
-        ignores: [
-            "node_modules/**",
-            ".next/**",
-            "out/**",
-            "build/**",
-            "next-env.d.ts",
-        ],
     },
 ];
 
