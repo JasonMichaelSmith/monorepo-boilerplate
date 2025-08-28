@@ -22,11 +22,11 @@ class TextInput {
         this.history.push(text);
     }
 
-    undo() {
+    undo(steps) {
         this.operation(-1);
     }
 
-    redo() {
+    redo(steps) {
         this.operation(1);
     }
 
