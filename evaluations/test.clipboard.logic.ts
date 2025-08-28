@@ -1,10 +1,11 @@
+// run: `node evaluations/test.clipboard.logic.ts`
 class TextInput {
     text: string;
     history: string[];
     historyIndex: number = 0;
 
-    textLimit = 50;
-    historyLimit = 50;
+    textLimit = 50; // Not implemented, just an idea
+    historyLimit = 50; // Not implemented, just an idea
 
     constructor() {
         this.history = [];
@@ -12,7 +13,7 @@ class TextInput {
 
     edit(text) {
         if (text.length > this.textLimit) {
-            throw new Error("");
+            throw new Error("Text limit reached");
         }
 
         this.historyIndex++;
@@ -22,11 +23,13 @@ class TextInput {
         this.history.push(text);
     }
 
-    undo(steps) {
+    // Note that steps is unimplemented, just an idea
+    undo(steps?) {
         this.operation(-1);
     }
 
-    redo(steps) {
+    // Note that steps is unimplemented, just an idea
+    redo(steps?) {
         this.operation(1);
     }
 
