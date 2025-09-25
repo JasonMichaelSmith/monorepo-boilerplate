@@ -1,55 +1,59 @@
-// run: `node evaluations/test.clipboard.logic.ts`
 class TextInput {
-    text: string;
-    history: string[];
-    historyIndex: number = 0;
+    private text: string;
+    private version: number = 0;
+    private versions: string[];
 
-    textLimit = 50; // Not implemented, just an idea
-    historyLimit = 50; // Not implemented, just an idea
+    public MAX_CHARS = 20;
+    public MAX_HISTORY = 5;
 
     constructor() {
-        this.history = [];
+        this.versions = [];
     }
 
-    edit(text) {
-        if (text.length > this.textLimit) {
-            throw new Error("Text limit reached");
+    edit(text: string) {
+        if (text.length > this.MAX_CHARS) {
+            throw new Error(`Edit text length (${text.length}) over MAX_CHARS: ${this.MAX_CHARS}`);
         }
-
-        this.historyIndex++;
 
         this.text = text;
+        this.versions.splice(this.version, 0, text);
 
-        this.history.push(text);
-    }
-
-    // Note that steps is unimplemented, just an idea
-    undo(steps?) {
-        this.operation(-1);
-    }
-
-    // Note that steps is unimplemented, just an idea
-    redo(steps?) {
-        this.operation(1);
-    }
-
-    operation(direction: 1 | -1) {
-        let newIndex = this.historyIndex + direction;
-
-        if (newIndex < 1) {
-            newIndex = 1;
+        if (this.versions.length > this.MAX_HISTORY) {
+            console.warn(`Edit text history reached: ${this.MAX_HISTORY}`);
+            this.versions.pop();
         }
 
-        if (newIndex > this.history.length - 1) {
-            newIndex = this.history.length;
-        }
+        console.log(this.version, this.versions);
+    }
 
-        this.historyIndex = newIndex;
-        this.text = this.history[this.historyIndex - 1];
+    redo() {
+        this.version--;
+        if (this.version < 0) this.version = 0;
+        this.text = this.versions[this.version];
+    }
+
+    undo() {
+        this.version++;
+        if (this.version > this.versions.length - 1) this.version = this.versions.length - 1;
+        this.text = this.versions[this.version];
     }
 
     getCurrentState() {
         return this.text;
+    }
+
+    // Utils
+
+    canUndo(): boolean {
+        return this.version <
+            this.versions.length - 1;
+    }
+    canRedo(): boolean { return this.version > 0; }
+    getHistorySize(): number { return this.versions.length; }
+
+    clearHistory(): void {
+        this.versions = [];
+        this.version = 0;
     }
 }
 
@@ -57,13 +61,18 @@ const editor = new TextInput();
 
 editor.edit('First version');
 editor.edit('Second version');
-editor.edit('Third version');
+editor.undo();
 
-console.log(`Third version: ${editor.getCurrentState()}`);
-editor.undo();
-console.log(`Second version: ${editor.getCurrentState()}`);
-editor.undo();
-console.log(`First version: ${editor.getCurrentState()}`);
+console.log('1: First version', editor.getCurrentState()); // Should return "First version"
 editor.redo();
+console.log('2: Second version', editor.getCurrentState()); // Should return "Second version"
+editor.undo();
+console.log('3: First version', editor.getCurrentState()); // Should return "First version"
+editor.edit('Third version');
+console.log('4: Third version', editor.getCurrentState()); // Should return "Third version"
+editor.undo();
+console.log('5: First version', editor.getCurrentState()); // Should return "First version"
 editor.redo();
-console.log(`Third version: ${editor.getCurrentState()}`);
+console.log('6: Third version', editor.getCurrentState()); // Should return "Third version"
+
+//editor.edit('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'); // Error

@@ -1,124 +1,108 @@
-// https://codesandbox.io/embed/j2s8lr?module=/src/Demo.tsx&fontsize=12
+'use client';
+
 import { Grid, Box } from '@mui/material';
-import * as React from 'react';
+import { memo, useCallback, useState } from 'react';
 
-const grid = {
-    width: 100,
-    height: 100,
-} as const;
-
-const check = (array, length) => {
-    let value = array[0][0];
-    let count = 0;
-    for (let i = 0; i < array.length && count !== length; i++) {
-        for (let j = 0; j < array[i].length && count !== length; j++) {
-            if (value.toString().trim().length > 0 && array[i][j] === value) {
-                count++;
-            } else {
-                value = array[i][j];
-                count = 1;
-            }
-        }
-    }
-    return count === length;
-};
-
-enum BoardState {
-    Empty = -1,
+enum TileType {
     Naught = 0,
     Cross = 1,
+    Empty = -1,
 }
 
-const board: BoardState[][] = [
-    [-1, -1, -1],
-    [-1, -1, -1],
-    [-1, -1, -1],
-];
+const styles = {
+    tile: { size: 100 },
+    board: { size: 3, rows: 3 },
+} as const;
 
-function MyApp() {
-    const [turn, setTurn] = React.useState(0);
-
-    return (
-        <>
-            <Box id="game" sx={{ display: 'relative', width: grid.width * 3 }}>
-                <Grid container>
-                    {Array.from(Array(9)).map((_, index) => (
-                        <Grid key={index} size={{ xs: 4 }}>
-                            <GridBox
-                                index={index}
-                                turn={turn}
-                                onClick={(index) => {
-                                    const x = index % 3;
-                                    const y = Math.floor(index / 3);
-
-                                    board[x][y] = turn % 2;
-                                    console.log(board);
-                                    setTurn(turn + 1);
-
-                                    if (turn >= 2) {
-                                        // determine a winner
-                                        const win = check(board, 9);
-                                        console.log('check winner', win);
-                                    }
-                                }}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
-        </>
+export const Test = () => {
+    const [board, setBoard] = useState<TileType[][]>(() =>
+        Array.from({ length: styles.board.size }, () =>
+            Array.from({ length: styles.board.rows }, () => TileType.Empty)
+        )
     );
-}
 
-const GridBox = ({ index, turn, onClick }) => {
-    const [filled, setFilled] = React.useState(false);
+    const [turn, setTurn] = useState<TileType.Naught | TileType.Cross>(
+        TileType.Naught
+    );
 
-    const permTurn = React.useMemo(() => turn, [filled]);
+    const [moves, setMoves] = useState<number>(0);
+
+    const onBoardCompleteHandler = useCallback(() => {
+        console.log('determine winner');
+    }, []);
+
+    const onTileClickHandler = (x: number, y: number) => {
+        if (board[x][y] === TileType.Empty) {
+            const newBoard = board.map((row) => [...row]);
+            newBoard[x][y] = turn;
+            setBoard(newBoard);
+
+            setTurn(
+                turn === TileType.Naught ? TileType.Cross : TileType.Naught
+            );
+
+            const newMoves = moves + 1;
+            setMoves(newMoves);
+
+            if (newMoves === styles.board.size * styles.board.rows) {
+                onBoardCompleteHandler();
+            }
+        }
+    };
 
     return (
-        <Box
-            sx={{
-                backgroundColor: 'lightblue',
-                borderColor: 'black',
-                border: 1,
-                width: grid.width,
-                height: grid.height,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-            onClick={() => {
-                if (filled) return;
-
-                setFilled(true);
-                onClick(index);
-            }}
-        >
-            {filled ? permTurn % 2 ? <Cross /> : <Naught /> : <></>}
-        </Box>
+        <Grid container sx={{ width: styles.tile.size * styles.board.rows }}>
+            {board.map((row, x) =>
+                row.map((value, y) => (
+                    <Tile
+                        key={`${x}-${y}`}
+                        x={x}
+                        y={y}
+                        value={value}
+                        size={styles.tile.size}
+                        onClick={onTileClickHandler}
+                    />
+                ))
+            )}
+        </Grid>
     );
 };
 
-const Cross = () => <p>X</p>;
-const Naught = () => <p>0</p>;
+const TileSymbol = {
+    [TileType.Cross]: <>X</>,
+    [TileType.Naught]: <>O</>,
+    [TileType.Empty]: <></>,
+} as const;
 
-const Line = ({ x, y }: { x: number; y: number }) => {
-    return (
-        <>
-            <Box
+const Tile = memo(
+    ({
+        size,
+        x,
+        y,
+        value,
+        onClick,
+    }: {
+        size: number;
+        x: number;
+        y: number;
+        value: TileType;
+        onClick: (x: number, y: number) => void;
+    }) => {
+        return (
+            <Grid
+                onClick={() => onClick(x, y)}
                 sx={{
-                    position: 'absolute',
-                    left: x,
-                    top: y,
-                    height: 5,
-                    width: '100%',
-                    backgroundColor: 'red',
+                    border: '1px solid red',
+                    width: size,
+                    height: size,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                 }}
-            ></Box>
-        </>
-    );
-};
-
-export default function Demo() {
-    return <MyApp />;
-}
+                size={4}
+            >
+                <Box>{TileSymbol[value]}</Box>
+            </Grid>
+        );
+    }
+);
