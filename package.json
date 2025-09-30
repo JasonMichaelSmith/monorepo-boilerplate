@@ -5,8 +5,7 @@
     "packageManager": "pnpm@10.14.0",
     "workspaces": [
         "apps/*",
-        "packages/*",
-        "functions/*"
+        "packages/*"
     ],
     "dependencies": {},
     "devDependencies": {
