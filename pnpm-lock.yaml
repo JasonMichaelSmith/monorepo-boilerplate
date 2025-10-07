@@ -82,16 +82,6 @@ importers:
         specifier: ^5
         version: 5.9.2
 
-  functions/api:
-    dependencies:
-      '@repo/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-    devDependencies:
-      '@repo/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-
   packages/tsconfig: {}
 
   packages/types:
@@ -120,6 +110,9 @@ importers:
       react-dom:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.1.0(react@19.1.0)
+      react-flag-kit:
+        specifier: ^1.1.1
+        version: 1.1.1(react@19.1.0)
     devDependencies:
       '@repo/tsconfig':
         specifier: workspace:*
@@ -2121,6 +2114,12 @@ packages:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
       react: ^19.1.0
+
+  react-flag-kit@1.1.1:
+    resolution: {integrity: sha512-sgelSGSl0HxSL8lMM1TEBidgiGV2hOi+GaLNKeg10aBnL07vpwKvmfILlc1SzOdVyH48NElFyMj4NQn8F+/FHw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: ^16.6.0 || ^17.0.0 || ^18.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -4592,6 +4591,10 @@ snapshots:
     dependencies:
       react: 19.1.0
       scheduler: 0.26.0
+
+  react-flag-kit@1.1.1(react@19.1.0):
+    dependencies:
+      react: 19.1.0
 
   react-is@16.13.1: {}
 

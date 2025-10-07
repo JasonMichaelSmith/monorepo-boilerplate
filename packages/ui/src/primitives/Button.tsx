@@ -1,5 +1,5 @@
 import {
-    ButtonProps as MuiButtonProps,
+    type ButtonProps as MuiButtonProps,
     Button as MuiButton,
 } from '@mui/material';
 

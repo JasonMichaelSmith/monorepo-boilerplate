@@ -1,34 +1,23 @@
+import { Container } from '@repo/ui';
 import { useTranslations } from 'next-intl';
-import { LanguageToggle } from './LanguageToggle';
-import { Card, ThemeToggle } from '@repo/ui';
+
+import Header from './Header';
+
 import { getData } from '../lib/actions/data';
 import { Suspense } from 'react';
 
 export default function Home() {
-    const t = useTranslations('homepage');
     const tCommon = useTranslations('common');
 
     return (
-        <div>
-            <Card
-                content={
-                    <>
-                        <h1>{t('title')}</h1>
-                        <p>{t('subtitle')}</p>
-                        <p>{t('description')}</p>
-                    </>
-                }
-                actions={
-                    <>
-                        <ThemeToggle />
-                        <LanguageToggle />
-                    </>
-                }
-            />
-            <p>{tCommon('welcome')}</p>
-            <Suspense fallback={<p>{tCommon('loading')}</p>}>
-                <DataExampleComponent />
-            </Suspense>
+        <div suppressHydrationWarning>
+            <Container base>
+                <Header />
+                <p>{tCommon('welcome')}</p>
+                <Suspense fallback={<p>{tCommon('loading')}</p>}>
+                    <DataExampleComponent />
+                </Suspense>
+            </Container>
         </div>
     );
 }

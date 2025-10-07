@@ -27,6 +27,7 @@ export default [
                 exports: 'readonly',
                 React: 'readonly',
                 HTMLElement: 'readonly',
+                HTMLDivElement: 'readonly',
                 fetch: 'readonly',
                 Request: 'readonly',
                 Response: 'readonly',

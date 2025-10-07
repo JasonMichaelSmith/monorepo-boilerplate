@@ -2,7 +2,7 @@ import {
     CardActions,
     CardContent,
     Card as MuiCard,
-    CardProps as MuiCardProps,
+    type CardProps as MuiCardProps,
 } from '@mui/material';
 
 import { ReactNode } from 'react';

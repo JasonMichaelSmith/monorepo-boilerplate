@@ -18,6 +18,7 @@ export const defaultTheme = createTheme({
         dark: true,
         light: true,
     },
+    defaultColorScheme: 'dark',
 });
 
 export const ThemeProvider = ({

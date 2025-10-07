@@ -1,8 +1,9 @@
 'use client';
 
 import { useColorScheme } from '@mui/material';
-import { Button } from './Button';
+import { Button } from '../primitives/Button';
 
+// TODO: next-intl via props
 export function ThemeToggle() {
     const { mode, setMode } = useColorScheme();
 
@@ -11,7 +12,7 @@ export function ThemeToggle() {
             variant="contained"
             onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
         >
-            Current theme: {mode}
+            Theme: {mode}
         </Button>
     );
 }
